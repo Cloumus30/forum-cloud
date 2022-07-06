@@ -1,0 +1,56 @@
+.nav-item .sub-item{
+    list-style: none;
+}
+.nav-item .item{
+    list-style: none;
+    color: red;
+}
+.nav-item .item a{
+    color: #fff;
+}
+.nav-item .sub-item a{
+    color: #D6F4FF;
+}
+.nav-item .sub-item a:hover{
+    color: white;
+}
+/* .hidden{
+    visibility: hidden;
+    position: absolute;
+} */
+/* #main-body{
+    transition: 0.1s;
+} */
+
+.side-nav-btn{
+    left: -20px;
+    transition: 100ms;
+}
+
+#side-nav-btn:hover{
+    left: 0;
+}
+
+.icon-card{
+    font-size: 3.5rem;
+}
+
+.attribute-author{
+    font-size: x-small;
+}
+
+/* .title-question{
+    font-size: small;
+} */
+
+.body-question{
+    font-size: smaller;
+}
+
+.nav-side{
+    z-index: 1030;
+}
+
+.navbar{
+    z-index: 1035;
+}

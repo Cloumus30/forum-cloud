@@ -82,6 +82,11 @@
 
         <!-- Feature Start -->
         <div class="container-xxl py-6">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="container">
                 <div class="row g-4">
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
