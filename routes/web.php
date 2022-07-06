@@ -3,6 +3,8 @@
 use App\Http\Controllers\User\AuthenticationController;
 use App\Http\Controllers\Views\AuthenticateController;
 use App\Http\Controllers\Views\AuthenticationViewController;
+use App\Http\Controllers\Views\DashboardController;
+use App\Http\Controllers\Views\ListPertanyaanController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,15 +23,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
-Route::get('/dashboard', function(){
-    return view('dashboard');
-});
+Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
 Route::get('/list-pengguna', function(){
     return view('list-pengguna');
 });
-Route::get('/list-pertanyaan',function(){
-    return view('list-pertanyaan');
-});
+Route::get('/list-pertanyaan',[DashboardController::class, 'viewListPertanyaan']);
 Route::get('/pertanyaan',function(){
     return view('Pertanyaan');
 });
