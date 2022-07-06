@@ -15,7 +15,7 @@
     <div class="row px-3">
         <!-- QUESTION CARD START -->
         <div class="row shadow p-3 mb-3 bg-body rounded">
-            <div class="col-1 my-auto">
+            <div class="col-lg-1 col-md-2 col-sm-3 text-nowrap my-auto">
                 <div class="row mb-2">0 Vote</div>    
                 <div class="row">3 jawaban</div>
             </div>
@@ -48,7 +48,7 @@
         <!-- QUESTION CARD END -->
         <!-- QUESTION CARD START -->
         <div class="row shadow p-3 mb-3 bg-body rounded">
-            <div class="col-1 my-auto">
+            <div class="col-lg-1 col-md-2 col-sm-3 text-nowrap my-auto">
                 <div class="row mb-2">0 Vote</div>    
                 <div class="row">3 jawaban</div>
             </div>
@@ -81,7 +81,7 @@
         <!-- QUESTION CARD END -->
         <!-- QUESTION CARD START -->
         <div class="row shadow p-3 mb-3 bg-body rounded">
-            <div class="col-1 my-auto">
+            <div class="col-lg-1 col-md-2 col-sm-3 text-nowrap my-auto">
                 <div class="row mb-2">0 Vote</div>    
                 <div class="row">3 jawaban</div>
             </div>
