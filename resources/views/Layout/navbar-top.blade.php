@@ -10,7 +10,7 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li>
-                        <a href="#" class="dropdown-item text-danger">logout</a>
+                        <a href="/logout" class="dropdown-item text-danger">logout</a>
                     </li>
                 </ul>
             </li>

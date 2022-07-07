@@ -23,7 +23,7 @@ class AuthenticationController extends Controller
             if (Auth::attempt($credentials)) {
                 $request->session()->regenerate();
      
-                return redirect()->intended('dashboard')->with('status','login Success');
+                return redirect()->intended('dashboard')->with('info','login Success');
             }
      
             return back()->withErrors([
@@ -62,7 +62,7 @@ class AuthenticationController extends Controller
                 'alamat' => $request->alamat,
             ]);
             DB::commit();
-            return redirect('/login')->with('status','Sukses Mendaftar, Silahkan Login');
+            return redirect('/login')->with('info','Sukses Mendaftar, Silahkan Login');
         } catch (\Throwable $th) {
             DB::rollBack();
             return back(500)->with('error',$th->getMessage());
@@ -71,5 +71,13 @@ class AuthenticationController extends Controller
             //     'error' => $th->getMessage(),
             // ],500);
         }
+    }
+
+    /**
+     * Logout
+     */
+    public function logout(){
+        Auth::logout();
+        return redirect('/login')->with('info','Terima Kasih telah menggunakan layanan kami');
     }
 }

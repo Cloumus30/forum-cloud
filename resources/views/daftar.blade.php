@@ -16,16 +16,16 @@
 <body>
   <div class="layer"></div>
 <main class="page-center">
-  @if (session('status'))
-    <x-alert-info :message="session('status')" /> 
+  @if (session('info'))
+    <x-alert-info :message="session('info')" /> 
   @endif
   @if ($errors->any())
     <x-alert-danger :errors="$errors->all()" />
   @endif
   <article class="sign-up">
-    <h1 class="sign-up__title">Daftar</h1>
-    <p class="sign-up__subtitle">Malu Bertanya Sesat Di Jalan :)</p>
-    <form class="sign-up-form form was-validated" action="/daftar" method="POST">
+    <a href="/" class="sign-up__title text-decoration-none navbar-brand fs-1 ">Forum-Cloud</a>
+    <p class="sign-up__subtitle">Silahkan Daftar, Malu Bertanya Sesat Di Jalan :)</p>
+    <form class="sign-up-form form was-validated " action="/daftar" method="POST">
       @csrf
       <label class="form-label-wrapper">
         <p class="form-label">Name</p>

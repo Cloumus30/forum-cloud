@@ -1,7 +1,7 @@
 @extends('Layout.main')
 
 @section('title')
-    Tanya || Forum-Cloud
+    Tanya | Forum-Cloud
 @endsection 
 
 @section('linkHeader')

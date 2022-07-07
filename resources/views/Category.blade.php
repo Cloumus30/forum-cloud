@@ -67,7 +67,8 @@
                 </div>
 
                 <div class="container d-flex flex-wrap justify-content-center mt-3">
-                   <x-category-card :categories="$categories" />
+                    {{-- components --}}
+                   <x-category-card :kategori="$kategori" />
                 </div>
 
 @endsection

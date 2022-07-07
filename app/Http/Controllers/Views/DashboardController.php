@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
 use App\Models\Kategori;
+use App\Models\Pertanyaan;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -23,7 +24,7 @@ class DashboardController extends Controller
             ]
         ];
         
-        return view('List-pertanyaan',['pertanyaanControl' => $pertanyaans]);
+        return view('List-pertanyaan',['pertanyaan' => $pertanyaans]);
     }
 
     public function viewDashboard(){
@@ -49,7 +50,21 @@ class DashboardController extends Controller
     }
 
     public function viewCategory(){
-        $categories = Kategori::all();
-        return view('Category',['categories' => $categories]);
+        $kategori = Kategori::all();
+        return view('Category',['kategori' => $kategori]);
+    }
+
+    public function viewPertanyaanUser(Request $request){
+        $pertanyaan = Pertanyaan::all();
+        return view('List-pertanyaan',['pertanyaan'=>$pertanyaan]);
+    }
+
+    public function viewTanya(Request $request){
+        $kategori = Kategori::all();
+        return view('Tanya',['kategori' => $kategori]);
+    }
+
+    public function viewProfil(Request $request){
+        return view('Profil');
     }
 }

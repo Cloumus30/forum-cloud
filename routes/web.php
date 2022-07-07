@@ -23,21 +23,20 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
-Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
-Route::get('/list-pengguna', [DashboardController::class, 'viewListPengguna']);
-Route::get('/list-pertanyaan',[DashboardController::class, 'viewListPertanyaan']);
-Route::get('/pertanyaan',function(){
-    return view('Pertanyaan');
+Route::middleware('auth')->group(function(){
+    Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
+    Route::get('/list-pengguna', [DashboardController::class, 'viewListPengguna']);
+    Route::get('/list-pertanyaan',[DashboardController::class, 'viewListPertanyaan']);
+    Route::get('/pertanyaan-user',[DashboardController::class, 'viewPertanyaanUser']);
+    Route::get('/profil',[DashboardController::class, 'viewProfil']);
+    Route::get('/tanya',[DashboardController::class, 'viewTanya']);
+    Route::get('/list-kategori', [DashboardController::class, 'viewCategory']);
 });
-Route::get('/profil',function(){
-    return view('Profil');
-});
-Route::get('/tanya',function(){
-    return view('Tanya');
-});
-Route::get('/list-kategori', [DashboardController::class, 'viewCategory']);
-Route::get('/login', [AuthenticationViewController::class,'viewLogin']);
+
+
+Route::get('/login', [AuthenticationViewController::class,'viewLogin'])->name('login');
 Route::get('/daftar', [AuthenticationViewController::class,'viewRegister']);
+Route::get('/logout',[AuthenticationController::class, 'logout']);
 
 /**
  * Routing Data

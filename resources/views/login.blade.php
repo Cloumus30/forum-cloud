@@ -16,14 +16,14 @@
 <body>
   <div class="layer"></div>
 <main class="page-center">
-  @if (session('status'))
-    <x-alert-info :message="session('status')" /> 
+  @if (session('info'))
+    <x-alert-info :message="session('info')" /> 
   @endif
   @if ($errors->any())
     <x-alert-danger :errors="$errors->all()" />
   @endif
   <article class="sign-up">
-    <h1 class="sign-up__title">Selamat Datang</h1>
+    <a href="/" class="sign-up__title text-decoration-none navbar-brand fs-1">Forum-Cloud</a>
     <p class="sign-up__subtitle">Masuk Untuk Mulai Berdiskusi</p>
     <form class="sign-up-form form" action="/login" method="POST">
       @csrf

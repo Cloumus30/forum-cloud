@@ -6,15 +6,15 @@ use Illuminate\View\Component;
 
 class categoryCard extends Component
 {
-    public $categories;
+    public $kategori;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($categories)
+    public function __construct($kategori)
     {
-        $this->categories = $categories;
+        $this->kategori = $kategori;
     }
 
     /**
