@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kategori;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -20,7 +22,7 @@ class DashboardController extends Controller
                 'author' => 'Anda sendiri',
             ]
         ];
-        return redirect('/dashboard')->withErrors(['error'=>'error ini','oke aja lah ya']);
+        
         return view('List-pertanyaan',['pertanyaanControl' => $pertanyaans]);
     }
 
@@ -38,6 +40,16 @@ class DashboardController extends Controller
             ]
         ];
 
-        return view('dashboard',['pertanyaanDashboard' => $pertanyaans])->with('info','oke aja lah');
+        return view('dashboard',['pertanyaanDashboard' => $pertanyaans]);
+    }
+
+    public function viewListPengguna(){
+        $users = User::all();
+        return view('List-Pengguna',['users' => $users]);
+    }
+
+    public function viewCategory(){
+        $categories = Kategori::all();
+        return view('Category',['categories' => $categories]);
     }
 }

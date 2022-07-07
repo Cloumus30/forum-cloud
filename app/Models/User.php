@@ -23,6 +23,7 @@ class User extends Authenticatable
         'tgl_lahir',
         'umur',
         'alamat',
+        'url_gambar',
     ];
 
     /**

@@ -26,7 +26,7 @@
                     <a href="{{url('/list-pengguna')}}" class=" nav-link pt-0"> List Pengguna</a>
                 </li>
                 <li class="sub-item">
-                    <a href="{{url('/category')}}" class=" nav-link pt-0"> Category </a>
+                    <a href="{{url('/list-kategori')}}" class=" nav-link pt-0"> Category </a>
                 </li>
             </ul>
 

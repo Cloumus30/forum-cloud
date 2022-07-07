@@ -24,9 +24,7 @@ Route::get('/', function () {
     return view('landing');
 });
 Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
-Route::get('/list-pengguna', function(){
-    return view('list-pengguna');
-});
+Route::get('/list-pengguna', [DashboardController::class, 'viewListPengguna']);
 Route::get('/list-pertanyaan',[DashboardController::class, 'viewListPertanyaan']);
 Route::get('/pertanyaan',function(){
     return view('Pertanyaan');
@@ -37,9 +35,7 @@ Route::get('/profil',function(){
 Route::get('/tanya',function(){
     return view('Tanya');
 });
-Route::get('/category', function(){
-    return view('Category');
-});
+Route::get('/list-kategori', [DashboardController::class, 'viewCategory']);
 Route::get('/login', [AuthenticationViewController::class,'viewLogin']);
 Route::get('/daftar', [AuthenticationViewController::class,'viewRegister']);
 
