@@ -1,16 +1,13 @@
 <!-- QUESTION CARD START -->
 @foreach ($pertanyaan as $pertan)
 <div class="row shadow p-3 mb-3 bg-body rounded">
-    <div class="col-lg-1 col-md-2 col-sm-3 text-nowrap my-auto">
-        <div class="row mb-2">0 Vote</div>    
-        <div class="row">3 jawaban</div>
-    </div>
-    <div class="col-11">
+    
         
-        <div class="title-question mb-2">
+        <div class="title-question mb-2 d-flex justify-content-between">
             <a href="#" class="text-decoration-none">
                 {{$pertan['judul']}}
             </a>
+            <div>3 jawaban</div>
         </div>
         <div class="body-question">
             <p class="">
@@ -29,7 +26,7 @@
                 <span class="attribute-author">30 Jawaban</span> 
             </div>
         </div>
-    </div>
+    
 </div>
 <!-- QUESTION CARD END -->    
 @endforeach

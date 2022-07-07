@@ -20,7 +20,7 @@ class DashboardController extends Controller
                 'author' => 'Anda sendiri',
             ]
         ];
-
+        return redirect('/dashboard')->withErrors(['error'=>'error ini','oke aja lah ya']);
         return view('List-pertanyaan',['pertanyaanControl' => $pertanyaans]);
     }
 
@@ -38,6 +38,6 @@ class DashboardController extends Controller
             ]
         ];
 
-        return view('dashboard',['pertanyaanDashboard' => $pertanyaans]);
+        return view('dashboard',['pertanyaanDashboard' => $pertanyaans])->with('info','oke aja lah');
     }
 }

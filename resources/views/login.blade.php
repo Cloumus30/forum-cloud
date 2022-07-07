@@ -9,7 +9,7 @@
   <!-- Favicon -->
   <link rel="shortcut icon" href="./img/svg/logo.svg" type="image/x-icon">
   <!-- Custom styles -->
-  <link rel="stylesheet" href="./css/style.min.css">
+  <link rel="stylesheet" href="{{asset('./css/style.min.css')}}">
   <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
 </head>
 
@@ -17,19 +17,11 @@
   <div class="layer"></div>
 <main class="page-center">
   @if (session('status'))
-    <div class="alert alert-success">
-        {{ session('status') }}
-    </div>
+    <x-alert-info :message="session('status')" /> 
   @endif
   @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
+    <x-alert-danger :errors="$errors->all()" />
+  @endif
   <article class="sign-up">
     <h1 class="sign-up__title">Selamat Datang</h1>
     <p class="sign-up__subtitle">Masuk Untuk Mulai Berdiskusi</p>
@@ -45,6 +37,7 @@
       </label>
       <a class="link-info forget-link" href="##">Forgot your password?</a>
       <button class="form-btn primary-default-btn transparent-btn">Sign in</button>
+      <span class="form-checkbox-label">Belum punya akun? <a href="{{url('/daftar')}}">Daftar disini</a> </span>
     </form>
   </article>
 </main>
