@@ -9,10 +9,10 @@
             </a>
             <div>3 jawaban</div>
         </div>
-        <div class="body-question">
-            <p class="">
-                {{$pertan['body']}}
-            </p>
+        <div class="body-question ql-snow">
+            <div class="ql-editor" style="white-space: pre-wrap">
+                {{$pertan['overview']}}
+            </div>
         </div>
         <div class="footer-card row justify-content-between">
             <div class="col-auto">

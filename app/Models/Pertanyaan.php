@@ -13,8 +13,13 @@ class Pertanyaan extends Model
     protected $fillable=[
         'judul',
         'body',
+        'overview',
         'waktu_tanya',
         'kategori_id',
         'user_id',
     ];
+
+    public function gambar(){
+        return $this->hasMany(GambarPertanyaan::class,'pertanyaan_id','id');
+    }
 }

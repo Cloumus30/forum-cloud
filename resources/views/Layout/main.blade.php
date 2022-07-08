@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="{{asset('./css/bootstrap.min.css')}}">
     <link rel="stylesheet" href="{{asset('./css/bootstrap-icons.css')}}">
     <link rel="stylesheet" href="{{asset('./css/custom-style.css')}}">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/night-owl.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+    {{-- <script>hljs.highlightAll();</script> --}}
     @yield('linkHeader');
     <title>@yield('title')</title>
     <style>

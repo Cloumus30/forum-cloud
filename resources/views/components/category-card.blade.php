@@ -9,7 +9,7 @@
     </div>
     <div class="card-footer d-flex justify-content-between">
         <div class="value-question">
-            {{$kateg->pertanyaan}} Pertanyaan
+            {{count($kateg->pertanyaan)}} Pertanyaan
         </div>
         <div class="btn-edit">
             {{-- <a href="#" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i>  Edit</a> --}}
@@ -27,20 +27,22 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST" id="form-update-kategori">
+                <form action="{{url('/kategori/'.$kateg->id)}}" method="POST" id="form-update-kategori{{$kateg->id}}">
+                    @method('PUT')
+                    @csrf
                     <div class="mb-3">
                         <label for="form-nama-kategori" class="form-label">Nama Kategori</label>
-                        <input type="text" class="form-control" id="form-nama-kategori" placeholder="cth:coding" name="kategori" value="{{$kateg->nama}}">
+                        <input type="text" class="form-control" id="form-nama-kategori" placeholder="cth:coding" name="nama" value="{{$kateg->nama}}">
                     </div>
                     <div class="mb-3">
                         <label for="form-deksripsi-kategori" class="form-label">Deskripsi Kategori</label>
-                        <textarea name="deskripsi_kategori" id="form-deksripsi-kategori" cols="30" rows="10" class="form-control">{{$kateg->deskripsi}}</textarea>
+                        <textarea name="deskripsi" id="form-deksripsi-kategori" cols="30" rows="10" class="form-control">{{$kateg->deskripsi}}</textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="btn-update-kategori">Save changes</button>
+                <button type="button" class="btn btn-primary" id="btn-update-kategori" onclick="updateKategori(this,{{$kateg->id}})">Save changes</button>
             </div>
         </div>
     </div>

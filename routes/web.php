@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Feature\GambarPertanyaanController;
+use App\Http\Controllers\Feature\KategoriController;
+use App\Http\Controllers\Feature\PertanyaanController;
 use App\Http\Controllers\User\AuthenticationController;
 use App\Http\Controllers\Views\AuthenticateController;
 use App\Http\Controllers\Views\AuthenticationViewController;
@@ -43,3 +46,12 @@ Route::get('/logout',[AuthenticationController::class, 'logout']);
  */
 Route::post('/daftar', [AuthenticationController::class,'register']);
 Route::post('/login', [AuthenticationController::class,'login']);
+
+Route::middleware('auth')->group(function(){
+    Route::post('/kategori',[KategoriController::class, 'store']);
+    Route::put('/kategori/{id}',[KategoriController::class, 'update']);
+
+    Route::post('/pertanyaan',[PertanyaanController::class,'store']);
+    Route::post('/gambar-pertanyaan',[GambarPertanyaanController::class, 'store']);
+});
+

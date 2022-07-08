@@ -4,3 +4,9 @@
   btnFormKategori.addEventListener('click',(e)=>{
       formKategori.submit();
   });
+
+  //Update Kategori
+  function updateKategori(obj,id){
+    const formUpdateKategori = document.getElementById('form-update-kategori'+id);
+    formUpdateKategori.submit();
+  }

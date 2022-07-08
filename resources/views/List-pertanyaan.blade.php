@@ -8,7 +8,7 @@
 @if (count($pertanyaan))
     <div class="d-flex justify-content-between">
         <h1>List Pertanyaan</h1>
-        <a href="#" class="btn btn-success" style="height: 60%;"><i class="bi bi-plus-square me-2"></i>Tanya</a>
+        <a href="{{url('tanya')}}" class="btn btn-success" style="height: 60%;"><i class="bi bi-plus-square me-2"></i>Tanya</a>
     </div>
     
     <!-- CONTAINER QUESTION START -->

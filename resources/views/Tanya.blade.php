@@ -6,16 +6,18 @@
 
 @section('linkHeader')
      <!-- Include stylesheet -->
-     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
      <link rel="stylesheet" href="./css/quill.imageUploader.min.css">
 @endsection
 
 @section('body')
 <h1>Tanyakan Saja</h1>
-<form action="">
+
+<form action="/pertanyaan" id="form-tambah-tanya" method="POST">
+  {{-- @csrf --}}
+  <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf" />
     <div class="mb-3">
         <label for="form-judul-pertanyaan" class="form-label">Judul Pertanyaan</label>
-        <input type="text" class="form-control" id="form-judul-pertanyaan" placeholder="Pertanyaan" name="pertanyaan">
+        <input type="text" class="form-control" id="form-judul-pertanyaan" placeholder="Pertanyaan" name="judul">
     </div>
     <div class="mb-3">
         <label for="form-isi" class="form-label">Isi</label>
@@ -54,16 +56,23 @@
             </select>
         </div>
         <div class="form-control mb-3" name="body" id="form-isi"></div>
-
+        {{-- hidden input --}}
+        <textarea name="body" id="form-isi-pertanyaan" cols="30" rows="10" hidden></textarea>
+        <input type="text" name="overview" hidden id="overview">
+        <input type="text" name="images" hidden id="images">
         <div class="mb-3">
             <label for="form-judul-pertanyaan" class="form-label">Kategori</label>
             <select name="kategori" id="select-kategori" class="form-select" aria-label="Default select example" required>
                 <option value="" selected>--Pilih Kategori--</option>
-                <option value="1">Kategori 1</option>
+                @foreach ($kategori as $kateg)
+                  <option value="{{$kateg->id}}">{{$kateg->nama}}</option>    
+                @endforeach
+                
             </select>
             <!-- <input type="text" class="form-control" id="form-judul-pertanyaan" placeholder="Pertanyaan" name="pertanyaan"> -->
         </div>                        
-        <button type="button" class="btn btn-success">Submit</button>
+        <button type="button" onclick="submitForm()" class="btn btn-success">Submit</button>
+        
     </div>
 </form>
 
@@ -72,8 +81,9 @@
 @section('script')
     <!-- Include the Quill library -->
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
-<script src="./js/image-resize.min.js"></script>
-<script src="./js/quill.imageUploader.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{asset('./js/image-resize.min.js')}}"></script>
+<script src="{{asset('./js/quill.imageUploader.min.js')}}"></script>
 
 <!-- Quill wysiwyg editor script -->
 <script>
@@ -81,42 +91,59 @@
     var quill = new Quill('#form-isi', {
         modules:{
             toolbar: '#toolbar',
+            syntax:true,
             imageResize: {
             // See optional "config" below
         },
             ImageUploader:{
                 upload: file => {
                 return new Promise((resolve, reject) => {
+                  const csrf = document.querySelector('#csrf').value;
                   const formData = new FormData();
-                  formData.append("image", "dana");
- 
-                  fetch(
-                    "https://request-receiver-app.herokuapp.com/api/post-request",
-                    {
-                      method: "POST",
-                      body: JSON.stringify({data:'dana'}),
-                      mode: 'cors',
-                    headers: {
-                        'Access-Control-Allow-Origin':'*',
-                        'Content-Type': 'application/json',
-                    }
-                    }
-                  )
-                    .then(response => response.json())
-                    .then(result => {
-                      console.log(result);
-                      resolve('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/JavaScript-logo.png/480px-JavaScript-logo.png');
-                    })
-                    .catch(error => {
-                      resolve("Upload failed");
-                      console.error("Error:", error);
-                    });
+                  formData.append("image", file);
+                  formData.append("_token", csrf);
+                  
+                  axios.post('/gambar-pertanyaan',formData)
+                  .then(function(response){
+                    // console.log(response);
+                    resolve(response.data.url);
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                    reject(err);
+                  })
+
                 });
               }
             }
         },
       theme: 'snow'
     });
+    const textArea = document.getElementById('form-isi-pertanyaan');
+    const inputImages = document.getElementById('images');
+    const overview = document.getElementById('overview');
+    function submitForm(){
+      let strTemp = quill.getText().replace(/\n/g,' ').slice(0,200);
+      textArea.innerHTML = quill.root.innerHTML.trim();
+      overview.value = strTemp + ' ...';
+      const formTambah = document.getElementById('form-tambah-tanya');
+      const images = getImageQuill(); //get images from quill editor
+      inputImages.value = JSON.stringify(images);
+      formTambah.submit();
+      
+    }
     
+    // Get src of images in the quill editor
+    function getImageQuill(){
+      let ops = quill.getContents().ops;
+      let res = [];
+      ops.forEach(element => {
+        if(element.insert.image){
+          res.push(element.insert.image);
+        }
+      });
+      return res;
+    }
+
   </script>
 @endsection

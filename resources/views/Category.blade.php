@@ -32,14 +32,15 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="" id="form-tambah-kategori">
+                                <form action="{{url('/kategori')}}" method="POST" id="form-tambah-kategori">
+                                    @csrf
                                     <div class="mb-3">
                                         <label for="form-nama-kategori" class="form-label">Nama Kategori</label>
-                                        <input type="text" class="form-control" id="form-nama-kategori" placeholder="cth:coding" name="kategori">
+                                        <input type="text" class="form-control" id="form-nama-kategori" placeholder="cth:coding" name="nama">
                                     </div>
                                     <div class="mb-3">
                                         <label for="form-deksripsi-kategori" class="form-label">Deskripsi Kategori</label>
-                                        <textarea name="deskripsi_kategori" id="form-deksripsi-kategori" cols="30" rows="10" class="form-control">Penjelasan Singkat Kategori</textarea>
+                                        <textarea id="form-deksripsi-kategori" cols="30" rows="10" class="form-control" name="deskripsi">Penjelasan Singkat Kategori</textarea>
                                     </div>
                                 </form>
                             </div>

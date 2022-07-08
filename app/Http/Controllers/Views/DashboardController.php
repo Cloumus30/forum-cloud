@@ -11,20 +11,9 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function viewListPertanyaan(){
-        $pertanyaans = [
-            [
-                'judul' => 'judul 1 aja',
-                'body' => 'body pertanyaannya adalah ini',
-                'author' => 'Saya sendiri',
-            ],
-            [
-                'judul' => 'judul 2 aja',
-                'body' => 'body pertanyaannya adalah ini',
-                'author' => 'Anda sendiri',
-            ]
-        ];
+        $pertanyaan = Pertanyaan::all();
         
-        return view('List-pertanyaan',['pertanyaan' => $pertanyaans]);
+        return view('List-pertanyaan',['pertanyaan' => $pertanyaan]);
     }
 
     public function viewDashboard(){
@@ -50,7 +39,7 @@ class DashboardController extends Controller
     }
 
     public function viewCategory(){
-        $kategori = Kategori::all();
+        $kategori = Kategori::with('pertanyaan')->orderBy('updated_at','desc')->get();
         return view('Category',['kategori' => $kategori]);
     }
 
