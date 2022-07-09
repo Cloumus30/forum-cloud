@@ -4,7 +4,7 @@
     
         
         <div class="title-question mb-2 d-flex justify-content-between">
-            <a href="#" class="text-decoration-none">
+            <a href="{{url('/pertanyaan/'.$pertan['id'])}}" class="text-decoration-none">
                 {{$pertan['judul']}}
             </a>
             <div>3 jawaban</div>

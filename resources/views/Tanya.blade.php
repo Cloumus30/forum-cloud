@@ -11,13 +11,19 @@
 
 @section('body')
 <h1>Tanyakan Saja</h1>
+@if (isset($pertanyaan))
+  <form action="/pertanyaan-edit/{{$pertanyaan->id}}" id="form-tambah-tanya" method="POST">    
+    @method('PUT')
+@else
+  <form action="/pertanyaan" id="form-tambah-tanya" method="POST">  
+@endif
 
-<form action="/pertanyaan" id="form-tambah-tanya" method="POST">
   {{-- @csrf --}}
   <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf" />
     <div class="mb-3">
         <label for="form-judul-pertanyaan" class="form-label">Judul Pertanyaan</label>
-        <input type="text" class="form-control" id="form-judul-pertanyaan" placeholder="Pertanyaan" name="judul">
+        <input required type="text" class="form-control" id="form-judul-pertanyaan" placeholder="Pertanyaan" name="judul"
+        value="{{ $pertanyaan->judul ?? "" }}">
     </div>
     <div class="mb-3">
         <label for="form-isi" class="form-label">Isi</label>
@@ -57,18 +63,36 @@
         </div>
         <div class="form-control mb-3" name="body" id="form-isi"></div>
         {{-- hidden input --}}
-        <textarea name="body" id="form-isi-pertanyaan" cols="30" rows="10" hidden></textarea>
+        <textarea name="body" id="form-isi-pertanyaan" cols="30" rows="10" hidden>
+          {{ $pertanyaan->body ?? "" }}
+        </textarea>
         <input type="text" name="overview" hidden id="overview">
+        <input type="text" name="quill_delta" hidden id="quill_delta" value="{{$pertanyaan->quill_delta ?? ""}}">
         <input type="text" name="images" hidden id="images">
         <div class="mb-3">
             <label for="form-judul-pertanyaan" class="form-label">Kategori</label>
-            <select name="kategori" id="select-kategori" class="form-select" aria-label="Default select example" required>
+            @if (isset($pertanyaan->kategori))
+              <select name="kategori" id="select-kategori" class="form-select" aria-label="Default select example" required>
+                @foreach ($kategori as $kateg)
+                  @if ($pertanyaan->kategori == $kateg)
+                    <option selected value="{{$kateg->id}}">{{$kateg->nama}}</option>  
+                  @else
+                    <option value="{{$kateg->id}}">{{$kateg->nama}}</option>    
+                  @endif
+                  
+                @endforeach
+                
+            </select>
+            @else
+              <select name="kategori" id="select-kategori" class="form-select" aria-label="Default select example" required>
                 <option value="" selected>--Pilih Kategori--</option>
                 @foreach ($kategori as $kateg)
                   <option value="{{$kateg->id}}">{{$kateg->nama}}</option>    
                 @endforeach
                 
-            </select>
+            </select>    
+            @endif
+            
             <!-- <input type="text" class="form-control" id="form-judul-pertanyaan" placeholder="Pertanyaan" name="pertanyaan"> -->
         </div>                        
         <button type="button" onclick="submitForm()" class="btn btn-success">Submit</button>
@@ -122,12 +146,19 @@
     const textArea = document.getElementById('form-isi-pertanyaan');
     const inputImages = document.getElementById('images');
     const overview = document.getElementById('overview');
+    const quillDelta = document.getElementById('quill_delta');
+    // check if quill_delta exist
+    if(quillDelta.value){
+       quill.setContents(JSON.parse(quillDelta.value));
+    }
+    
     function submitForm(){
       let strTemp = quill.getText().replace(/\n/g,' ').slice(0,200);
       textArea.innerHTML = quill.root.innerHTML.trim();
       overview.value = strTemp + ' ...';
       const formTambah = document.getElementById('form-tambah-tanya');
       const images = getImageQuill(); //get images from quill editor
+      quillDelta.value = JSON.stringify(quill.getContents());
       inputImages.value = JSON.stringify(images);
       formTambah.submit();
       
@@ -144,6 +175,14 @@
       });
       return res;
     }
+
+    // convert string to HTML
+    function stringToHtml (str) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(str, 'text/html');
+      // console.log(doc.body.innerHTML);
+      return doc.body.innerHTML;
+    };
 
   </script>
 @endsection

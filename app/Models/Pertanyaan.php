@@ -14,6 +14,7 @@ class Pertanyaan extends Model
         'judul',
         'body',
         'overview',
+        'quill_delta',
         'waktu_tanya',
         'kategori_id',
         'user_id',
@@ -21,5 +22,13 @@ class Pertanyaan extends Model
 
     public function gambar(){
         return $this->hasMany(GambarPertanyaan::class,'pertanyaan_id','id');
+    }
+
+    public function kategori(){
+        return $this->belongsTo(Kategori::class,'kategori_id','id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Views\AuthenticateController;
 use App\Http\Controllers\Views\AuthenticationViewController;
 use App\Http\Controllers\Views\DashboardController;
 use App\Http\Controllers\Views\ListPertanyaanController;
+use App\Http\Controllers\Views\PertanyaanViewController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,11 +30,17 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
     Route::get('/list-pengguna', [DashboardController::class, 'viewListPengguna']);
+
     Route::get('/list-pertanyaan',[DashboardController::class, 'viewListPertanyaan']);
     Route::get('/pertanyaan-user',[DashboardController::class, 'viewPertanyaanUser']);
+    Route::get('/pertanyaan/{id}',[PertanyaanViewController::class, 'view']);
+    Route::get('/pertanyaan-edit/{id}',[DashboardController::class,'viewPertanyaan']);
+
     Route::get('/profil',[DashboardController::class, 'viewProfil']);
     Route::get('/tanya',[DashboardController::class, 'viewTanya']);
-    Route::get('/list-kategori', [DashboardController::class, 'viewCategory']);
+    Route::get('/list-kategori', [DashboardController::class, 'viewCategory']); 
+
+    
 });
 
 
@@ -53,5 +60,6 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/pertanyaan',[PertanyaanController::class,'store']);
     Route::post('/gambar-pertanyaan',[GambarPertanyaanController::class, 'store']);
+    Route::put('/pertanyaan-edit/{id}',[PertanyaanController::class,'update']);
 });
 

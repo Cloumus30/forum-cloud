@@ -17,20 +17,9 @@ class DashboardController extends Controller
     }
 
     public function viewDashboard(){
-        $pertanyaans = [
-            [
-                'judul' => 'judul 1 aja di dashboard',
-                'body' => 'body pertanyaannya adalah ini',
-                'author' => 'Saya sendiri',
-            ],
-            [
-                'judul' => 'judul 2 aja',
-                'body' => 'body pertanyaannya adalah ini',
-                'author' => 'Anda sendiri',
-            ]
-        ];
+        $pertanyaan = Pertanyaan::all();
 
-        return view('dashboard',['pertanyaanDashboard' => $pertanyaans]);
+        return view('dashboard',['pertanyaanDashboard' => $pertanyaan]);
     }
 
     public function viewListPengguna(){
@@ -51,6 +40,12 @@ class DashboardController extends Controller
     public function viewTanya(Request $request){
         $kategori = Kategori::all();
         return view('Tanya',['kategori' => $kategori]);
+    }
+
+    public function viewPertanyaan(Request $request,$id){
+        $pertanyaan = Pertanyaan::with('kategori','user')->find($id);
+        $kategori = Kategori::all();
+        return view('Tanya',['pertanyaan' => $pertanyaan,'kategori' => $kategori]);
     }
 
     public function viewProfil(Request $request){
