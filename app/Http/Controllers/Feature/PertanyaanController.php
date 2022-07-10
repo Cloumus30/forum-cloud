@@ -35,20 +35,14 @@ class PertanyaanController extends Controller
             $pertanyaan = Pertanyaan::create($request->all());
             if(count($images)){
                 foreach ($images as $image) {
-                    $gambar = GambarPertanyaan::where('url',$image)->first();
-                    $gambar->pertanyaan_id = $pertanyaan->id;
-                    $gambar->save();
+                    $img = GambarPertanyaan::where('url',$image)->first();
+                    $img->pertanyaan_id = $pertanyaan->id;
+                    $img->save();
                 }
             }
 
-             // delete gambar that does not have pertanyaan_id
-             $gambar = GambarPertanyaan::whereNull('pertanyaan_id');
-             $gambarDeleteFile = $gambar->get();
-             $gambar->delete();
-             foreach ($gambarDeleteFile as $gbr) {
-                 $pathDel = "/public/image/";
-                 Storage::delete($pathDel.$gbr->nama);
-             }
+            // delete gambar that does not have pertanyaan_id
+            $this->deleteImageNullPertanyaan(); 
 
             return redirect('/list-pertanyaan')->with('info','sukses input pertanyaan');
         } catch (\Throwable $th) {
@@ -68,24 +62,27 @@ class PertanyaanController extends Controller
             'kategori' => 'required|integer|exists:kategoris,id',
         ]);
         try {
-            $pertanyaan = Pertanyaan::find($id);
+            $pertanyaan = Pertanyaan::with('gambar')->find($id);
             $request->merge([
                 'kategori_id' => $request->kategori,
             ]);
+            $currentImg = $pertanyaan->gambar;
             $images = json_decode($request->images);
-
+            // check diff in current images and updated images
+            $deleteUrl = $this->getDiffImages($currentImg,$images);
+            // dd($deleteUrl);
             // Update pertanyaan_id in GambarPertanyaan
             $pertanyaan->update($request->all());
             if(count($images)){
                 foreach ($images as $image) {
-                    $gambar = GambarPertanyaan::where('url',$image)->first();
-                    $gambar->pertanyaan_id = $pertanyaan->id;
-                    $gambar->save();
+                   $img = GambarPertanyaan::where('url',$image)->first();
+                   $img->pertanyaan_id = $pertanyaan->id;
+                   $img->save();
                 }
             }
 
-             // delete gambar that does not have pertanyaan_id
-             $gambar = GambarPertanyaan::whereNull('pertanyaan_id');
+             // delete gambar that does not belongs To pertanyaan
+             $gambar = GambarPertanyaan::whereIn('url',$deleteUrl)->orWhereNull('pertanyaan_id',null);
              $gambarDeleteFile = $gambar->get();
              $gambar->delete();
              foreach ($gambarDeleteFile as $gbr) {
@@ -97,5 +94,28 @@ class PertanyaanController extends Controller
         } catch (\Throwable $th) {
             return back()->withErrors([$th->getMessage()]);
         }
+    }
+
+    //function to delete gambar that does not have pertanyaan_id
+    public function deleteImageNullPertanyaan(){
+        
+        $gambar = GambarPertanyaan::whereNull('pertanyaan_id');
+        $gambarDeleteFile = $gambar->get();
+        $gambar->delete();
+        foreach ($gambarDeleteFile as $gbr) {
+            $pathDel = "/public/image/";
+            Storage::delete($pathDel.$gbr->nama);
+        }
+    }
+
+    // function to get different current images with updated images
+    public function getDiffImages($currentImages, $updatedImages){
+        $countDiff = 0;
+        $currentUrl = [];
+        foreach ($currentImages as $img) {
+            array_push($currentUrl,$img->url);
+        }
+        $deleteUrl = array_diff($currentUrl,$updatedImages);
+        return $deleteUrl;
     }
 }
