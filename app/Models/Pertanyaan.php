@@ -31,4 +31,8 @@ class Pertanyaan extends Model
     public function user(){
         return $this->belongsTo(User::class,'user_id','id');
     }
+
+    public function jawaban(){
+        return $this->hasMany(Jawaban::class,'pertanyaan_id','id');
+    }
 }

@@ -4,18 +4,164 @@
     Pertanyaan | Forum-Cloud
 @endsection
 
+@section('linkHeader')
+     <!-- Include stylesheet -->
+     <link rel="stylesheet" href="{{asset('css/quill.imageUploader.min.css')}}">
+@endsection
+
 @section('body')
     <div class="d-flex justify-content-between">
-        <h1>{{$pertanyaan->judul}}</h1>
+        <div>
+            <h1 class="mb-0">{{$pertanyaan->judul}}</h1>
+            <p class="mt-0">Ditanyakan oleh 
+                <strong>{{$pertanyaan->user->nama}}</strong> 
+                <span class="text-secondary" style="font-size: smaller">{{$waktu}}</span>
+            </p>
+        </div>
+        
         <a href="{{url('/pertanyaan-edit/'.$pertanyaan->id)}}" class="btn btn-success" style="height: 60%;"><i class="bi bi-pencil-square"></i> Edit</a>
     </div>
     
     <div class="ql-snow">
-        <div class="ql-editor">
+        <div class="ql-editor pt-0">
             {!!$pertanyaan->body!!}
         </div>
+    </div>
+
+    <div class="container">
+        <h3>JAWABAN</h3>
+        <form action="" method="POST">
+            <input type="hidden" name="_token" value="{{ csrf_token() }}" id="csrf" />
+            <!-- Create toolbar container -->
+            <div id="toolbar">
+                <!-- Add Bold Button-->
+                <button class="ql-bold"></button>
+                <!-- Add Italic Button -->
+                <button class="ql-italic"></button>
+                <!-- Add font size dropdown -->
+                <select class="ql-size">
+                    <option value="small"></option>
+                    <!-- Note a missing, thus falsy value, is used to reset to default -->
+                    <option selected></option>
+                    <option value="large"></option>
+                    <option value="huge"></option>
+                </select>
+                <!-- add hyperlink button -->
+                <button class="ms-3 ql-link"></button>
+                <!-- Add blockquote button -->
+                <button class="ql-blockquote"></button>
+                <!-- add code-block button -->
+                <button class="ql-code-block"></button>
+                <!-- Add a bold button -->
+                <button class="ql-image"></button>
+
+                <!-- add list -->
+                <button class="ql-list ms-3" value="ordered"></button>
+                <button class="ql-list" value="bullet"></button>
+                <!-- add align text -->
+                <select name="" id="" class="ql-align">
+                    <option selected></option>
+                    <option value="center"></option>
+                    <option value="right"></option>
+                    <option value="justify"></option>
+                </select>
+            </div>
+            <div class="jawab-editor" id="jawab-editor"></div>
+            {{-- hidden input --}}
+            <textarea name="body" id="form-isi-pertanyaan" cols="30" rows="10" hidden>
+                {{ $pertanyaan->body ?? "" }}
+            </textarea>
+            <input type="text" name="quill_delta" hidden id="quill_delta" value="{{$pertanyaan->quill_delta ?? ""}}">
+            <input type="text" name="images" hidden id="images">
+
+            <button type="button" onclick="submitForm()" class="btn btn-success mt-3">Submit</button>
+        </form>
+        
     </div>
     
     
 
+@endsection
+
+
+@section('script')
+    <!-- Include the Quill library -->
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="{{asset('./js/image-resize.min.js')}}"></script>
+<script src="{{asset('./js/quill.imageUploader.min.js')}}"></script>
+
+<!-- Quill wysiwyg editor script -->
+<script>
+    Quill.register('modules/ImageUploader', ImageUploader, true);
+    var quill = new Quill('#jawab-editor', {
+        modules:{
+            toolbar: '#toolbar',
+            syntax:true,
+            imageResize: {
+            // See optional "config" below
+        },
+            ImageUploader:{
+                upload: file => {
+                return new Promise((resolve, reject) => {
+                  const csrf = document.querySelector('#csrf').value;
+                  const formData = new FormData();
+                  formData.append("image", file);
+                  formData.append("_token", csrf);
+                  
+                  axios.post('/gambar-pertanyaan',formData)
+                  .then(function(response){
+                    // console.log(response);
+                    resolve(response.data.url);
+                  })
+                  .catch(function(err){
+                    console.log(err);
+                    reject(err);
+                  })
+
+                });
+              }
+            }
+        },
+      theme: 'snow',
+      placeholder: 'tulis jawban anda disini'
+    });
+    const textArea = document.getElementById('form-isi-pertanyaan');
+    const inputImages = document.getElementById('images');
+    const overview = document.getElementById('overview');
+    const quillDelta = document.getElementById('quill_delta');
+    
+    function submitForm(){
+      let strTemp = quill.getText().replace(/\n/g,' ').slice(0,200);
+      textArea.innerHTML = quill.root.innerHTML.trim();
+      overview.value = strTemp + ' ...';
+      const formTambah = document.getElementById('form-tambah-tanya');
+      const images = getImageQuill(); //get images from quill editor
+      quillDelta.value = JSON.stringify(quill.getContents());
+      inputImages.value = JSON.stringify(images);
+      formTambah.submit();
+      
+    }
+    
+    // Get src of images in the quill editor
+    function getImageQuill(){
+      let ops = quill.getContents().ops;
+      let res = [];
+      ops.forEach(element => {
+        if(element.insert.image){
+          res.push(element.insert.image);
+        }
+      });
+      return res;
+    }
+
+    // convert string to HTML
+    function stringToHtml (str) {
+      var parser = new DOMParser();
+      var doc = parser.parseFromString(str, 'text/html');
+      // console.log(doc.body.innerHTML);
+      return doc.body.innerHTML;
+    };
+
+  </script>
 @endsection
