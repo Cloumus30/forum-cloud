@@ -23,7 +23,7 @@ class User extends Authenticatable
         'tgl_lahir',
         'umur',
         'alamat',
-        'url_gambar',
+        'gambar_id',
     ];
 
     /**
@@ -50,6 +50,10 @@ class User extends Authenticatable
 
     public function jawaban(){
         return $this->hasMany(Jawaban::class,'user_id','id');
+    }
+
+    public function gambarUser(){
+        return $this->hasOne(GambarUser::class,'user_id','id');
     }
 
 }

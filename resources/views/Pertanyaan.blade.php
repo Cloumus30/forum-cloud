@@ -34,7 +34,7 @@
 
     <div class="container">
         <h3>JAWABAN</h3>
-        <x-jawaban-component :jawaban="$pertanyaan->jawaban" :userId="$pertanyaan->user_id" />
+        <x-jawaban-component :jawaban="$pertanyaan->jawaban" :userId="$userId" />
 
           {{-- FORM JAWABAN START --}}
           @if (!$isJawab)

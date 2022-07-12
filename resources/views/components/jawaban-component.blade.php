@@ -15,9 +15,9 @@
         <div class="col-auto">
             By <a href="" class="text-decoration-none">{{$jawab->user->nama}} </a> 
             <span class="attribute-author">
-              <strong>{{count($jawab->user->pertanyaan)}}</strong> Pertanyaan
+              <strong>{{$jawab->user->jumlah_pertanyaan}}</strong> Pertanyaan
             </span>  
-            <span class="attribute-author">{{count($jawab->user->jawaban)}} Jawaban</span> 
+            <span class="attribute-author">{{$jawab->user->jumlah_jawaban}} Jawaban</span> 
         </div>
     </div>
       

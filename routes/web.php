@@ -6,6 +6,7 @@ use App\Http\Controllers\Feature\JawabanController;
 use App\Http\Controllers\Feature\KategoriController;
 use App\Http\Controllers\Feature\PertanyaanController;
 use App\Http\Controllers\User\AuthenticationController;
+use App\Http\Controllers\User\ProfilController;
 use App\Http\Controllers\Views\AuthenticateController;
 use App\Http\Controllers\Views\AuthenticationViewController;
 use App\Http\Controllers\Views\DashboardController;
@@ -66,5 +67,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('/jawaban',[JawabanController::class, 'store']);
     Route::post('/gambar-jawaban',[GambarJawabanController::class, 'store']);
+
+    Route::post('/gambar-profil',[ProfilController::class,'storeUpdateImage']);
 });
 

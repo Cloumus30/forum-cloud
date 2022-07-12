@@ -14,8 +14,8 @@
                 <div class="col-6">
                     <a href="#">{{$user->nama}}</a>
                     <div class="row">
-                        <p class="mb-0 text-secondary"> <strong class="text-dark">{{$user->pertanyaan}}</strong> Pertanyaan</p>
-                        <p class="mb-0 text-secondary"> <strong class="text-dark">{{$user->jawaban}}</strong> Menjawab</p>
+                        <p class="mb-0 text-secondary"> <strong class="text-dark">{{$user->jumlah_pertanyaan}}</strong> Pertanyaan</p>
+                        <p class="mb-0 text-secondary"> <strong class="text-dark">{{$user->jumlah_jawaban}}</strong> Menjawab</p>
                     </div>
                 </div>
             </div>

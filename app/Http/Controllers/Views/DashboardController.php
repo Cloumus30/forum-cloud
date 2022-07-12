@@ -23,7 +23,7 @@ class DashboardController extends Controller
     }
 
     public function viewListPengguna(){
-        $users = User::all();
+        $users = User::withCount(['pertanyaan as jumlah_pertanyaan','jawaban as jumlah_jawaban'])->get();
         return view('List-Pengguna',['users' => $users]);
     }
 
@@ -49,6 +49,11 @@ class DashboardController extends Controller
     }
 
     public function viewProfil(Request $request){
-        return view('Profil');
+        $user = auth()->user();
+        $userData = User::with('gambarUser')
+                ->withCount(['pertanyaan as jumlah_pertanyaan','jawaban as jumlah_jawaban'])
+                ->find($user->id);
+        
+        return view('Profil',['user' => $userData,'isOwnProfil'=>true]);
     }
 }
