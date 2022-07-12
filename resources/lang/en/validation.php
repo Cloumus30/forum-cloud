@@ -133,6 +133,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'email'=>[
+            'exists' => ':attribute Tidak Terdaftar',
+        ],
+        'password' => [
+            'required' => 'Password Harus Diisi',
+        ]
     ],
 
     /*
@@ -146,6 +152,8 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'Alamat Email'
+    ],
 
 ];

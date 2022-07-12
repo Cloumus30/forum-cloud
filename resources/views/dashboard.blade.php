@@ -1,50 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layout.main')
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Forum Cloud | Daftar</title>
-  <!-- Favicon -->
-  <link rel="shortcut icon" href="./img/svg/logo.svg" type="image/x-icon">
-  <!-- Custom styles -->
-  <link rel="stylesheet" href="./css/style.min.css">
-</head>
+@section('title')
+    Dashboard|Forum-Cloud
+@endsection
 
-<body>
-  <div class="layer"></div>
-<main class="page-center">
-  <article class="sign-up">
-    <h1 class="sign-up__title">Daftar</h1>
-    <p class="sign-up__subtitle">Malu Bertanya Sesat Di Jalan :)</p>
-    <form class="sign-up-form form" action="" method="">
-      <label class="form-label-wrapper">
-        <p class="form-label">Name</p>
-        <input class="form-input" type="text" placeholder="Enter your name" required>
-      </label>
-      <label class="form-label-wrapper">
-        <p class="form-label">Email</p>
-        <input class="form-input" type="email" placeholder="Enter your email" required>
-      </label>
-      <label class="form-label-wrapper">
-        <p class="form-label">Password</p>
-        <input class="form-input" type="password" placeholder="Enter your password" required>
-      </label>
-      <!-- <label class="form-checkbox-wrapper">
-        <input class="form-checkbox" type="checkbox" required>
-        <span class="form-checkbox-label">Remember me next time</span>
-      </label> -->
-      <button class="form-btn primary-default-btn transparent-btn">Sign in</button>
-    </form>
-  </article>
-</main>
-<!-- Chart library -->
-<script src="./plugins/chart.min.js"></script>
-<!-- Icons library -->
-<script src="plugins/feather.min.js"></script>
-<!-- Custom scripts -->
-<script src="js/script.js"></script>
-</body>
+@section('body')
+    <h1>Dashboard</h1>
+    <div class="container">
 
-</html>
+        <div class="row my-3 justify-content-around">
+            <div class="col-lg-3">
+                <!-- Card Start -->
+                <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="media d-flex justify-content-between">
+                          <div class="align-self-center">
+                            <i class="bi bi-question-circle-fill text-primary icon-card"></i>
+                          </div>
+                          <div class="media-body text-right">
+                            <h3>278</h3>
+                            <span>Pertanyaan</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card End -->
+            </div>
+            <div class="col-lg-3">
+                <!-- Card Start -->
+                <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="media d-flex justify-content-between">
+                          <div class="align-self-center">
+                            <i class="bi bi-tags-fill icon-card text-success"></i>
+                          </div>
+                          <div class="media-body text-right">
+                            <h3>278</h3>
+                            <span>Kategori</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card End -->
+            </div>
+            <div class="col-lg-3">
+                <!-- Card Start -->
+                <div class="card">
+                    <div class="card-content">
+                      <div class="card-body">
+                        <div class="media d-flex justify-content-between">
+                          <div class="align-self-center">
+                            <i class="bi bi-lightbulb-fill icon-card text-warning"></i>
+                          </div>
+                          <div class="media-body">
+                            <h3>278</h3>
+                            <span>Jawaban Anda</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- Card End -->
+            </div>
+        </div>
+
+        <h3>List Pertanyaan</h3>
+
+        <div class="row px-3">
+            <x-pertanyaan-component :pertanyaan="$pertanyaanDashboard"/>
+        </div>
+        <div class="text-center mb-3">
+            <a href="#" class="btn btn-primary">Selengkapnya</a>    
+        </div>
+    </div>
+     
+@endsection

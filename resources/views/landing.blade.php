@@ -49,13 +49,11 @@
                         <a href="#home" class="nav-item nav-link active">Home</a>
                         <a href="#about" class="nav-item nav-link">About</a>
                         <a href="#overview" class="nav-item nav-link">Overview</a>
-                        <a href="#features" class="nav-item nav-link">Features</a>
-                        <a href="#pricing" class="nav-item nav-link">Pricing</a>
                         <a href="#testimonial" class="nav-item nav-link">Testimonial</a>
                         <a href="#contact" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="" class="btn btn-dark rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Login</a>
-                    <a href="" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Daftar</a>
+                    <a href="{{url('/login')}}" class="btn btn-dark rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Login</a>
+                    <a href="{{url('/daftar')}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Daftar</a>
                 </div>
             </nav>
 
@@ -82,6 +80,11 @@
 
         <!-- Feature Start -->
         <div class="container-xxl py-6">
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             <div class="container">
                 <div class="row g-4">
                     <div class="col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
