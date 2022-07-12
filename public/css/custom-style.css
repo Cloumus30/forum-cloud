@@ -60,3 +60,7 @@ pre.ql-syntax {
     color: #f8f8f2;
     overflow: visible;
   }
+
+.bg-select{
+    background-color: #ced4da;
+}

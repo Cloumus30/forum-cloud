@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\Feature\GambarJawabanController;
 use App\Http\Controllers\Feature\GambarPertanyaanController;
+use App\Http\Controllers\Feature\JawabanController;
 use App\Http\Controllers\Feature\KategoriController;
 use App\Http\Controllers\Feature\PertanyaanController;
 use App\Http\Controllers\User\AuthenticationController;
@@ -61,5 +63,8 @@ Route::middleware('auth')->group(function(){
     Route::post('/pertanyaan',[PertanyaanController::class,'store']);
     Route::post('/gambar-pertanyaan',[GambarPertanyaanController::class, 'store']);
     Route::put('/pertanyaan-edit/{id}',[PertanyaanController::class,'update']);
+
+    Route::post('/jawaban',[JawabanController::class, 'store']);
+    Route::post('/gambar-jawaban',[GambarJawabanController::class, 'store']);
 });
 

@@ -33,6 +33,7 @@ class PertanyaanController extends Controller
 
             // Update pertanyaan_id in GambarPertanyaan
             $pertanyaan = Pertanyaan::create($request->all());
+            
             if(count($images)){
                 foreach ($images as $image) {
                     $img = GambarPertanyaan::where('url',$image)->first();
@@ -86,7 +87,7 @@ class PertanyaanController extends Controller
              $gambarDeleteFile = $gambar->get();
              $gambar->delete();
              foreach ($gambarDeleteFile as $gbr) {
-                 $pathDel = "/public/image/";
+                 $pathDel = "/public/image/pertanyaan/";
                  Storage::delete($pathDel.$gbr->nama);
              }
 
@@ -103,7 +104,7 @@ class PertanyaanController extends Controller
         $gambarDeleteFile = $gambar->get();
         $gambar->delete();
         foreach ($gambarDeleteFile as $gbr) {
-            $pathDel = "/public/image/";
+            $pathDel = "/public/image/pertanyaan/";
             Storage::delete($pathDel.$gbr->nama);
         }
     }

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Feature;
 
 use App\Http\Controllers\Controller;
-use App\Models\GambarPertanyaan;
-use Carbon\Carbon;
+use App\Models\GambarJawaban;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
-class GambarPertanyaanController extends Controller
+class GambarJawabanController extends Controller
 {
     public function store(Request $request){
         try {
@@ -24,11 +24,11 @@ class GambarPertanyaanController extends Controller
             $fileExt = $file->extension();
             $fileSize = $file->getSize();
             $userId = auth()->user()->id;
-            $fileName = "IMG-PTY-$time-$userId.$fileExt";
-            $path = $file->storeAs('/public/image/pertanyaan',$fileName);
+            $fileName = "IMG-JWB-$time-$userId.$fileExt";
+            $path = $file->storeAs('/public/image/jawaban',$fileName);
             $url = Storage::url($path);
 
-            $gambar = GambarPertanyaan::create([
+            $gambar = GambarJawaban::create([
                 'nama' => $fileName,
                 'url' => $url,
                 'size' => $fileSize,
