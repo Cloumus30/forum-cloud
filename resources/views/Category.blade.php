@@ -70,6 +70,7 @@
                 <div class="container d-flex flex-wrap justify-content-center mt-3">
                     {{-- components --}}
                    <x-category-card :kategori="$kategori" />
+                   {{$kategori->links()}}
                 </div>
 
 @endsection

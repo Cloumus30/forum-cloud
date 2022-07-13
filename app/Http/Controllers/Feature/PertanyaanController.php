@@ -21,6 +21,7 @@ class PertanyaanController extends Controller
             'body' => 'required|string',
             'overview' => 'required|string',
             'kategori' => 'required|integer|exists:kategoris,id',
+            'quill_delta' => 'required|string'
         ]);
         try {
             $user = auth()->user();
@@ -61,6 +62,7 @@ class PertanyaanController extends Controller
             'body' => 'required|string',
             'overview' => 'required|string',
             'kategori' => 'required|integer|exists:kategoris,id',
+            'quill_delta' => 'required|string',
         ]);
         try {
             $pertanyaan = Pertanyaan::with('gambar')->find($id);

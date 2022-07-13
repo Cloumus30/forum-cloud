@@ -15,7 +15,7 @@ class AddGambarColumnIntoUserTable extends Migration
     public function up()
     {
         Schema::table('users',function(Blueprint $table){
-            $table->string('gambar_url',300)->nullable();
+            $table->string('url_gambar',300)->nullable();
         });
     }
 

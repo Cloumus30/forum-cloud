@@ -16,7 +16,7 @@
         <div class="row px-3">
         <x-pertanyaanComponent :pertanyaan="$pertanyaan"/>
         </div>
-        
+        {{$pertanyaan->links()}}
     </div>
     <!-- CONTAINER QUESTION END -->    
 @else
@@ -33,7 +33,7 @@
         </figcaption>
     </figure>
     <div class="text-center">
-        <a href="Tanya.html" class="btn btn-primary btn-lg">Mulai Bertanya</a>    
+        <a href="{{url('/tanya')}}" class="btn btn-primary btn-lg">Mulai Bertanya</a>    
     </div>
 @endif
 

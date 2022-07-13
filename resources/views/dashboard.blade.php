@@ -19,7 +19,7 @@
                             <i class="bi bi-question-circle-fill text-primary icon-card"></i>
                           </div>
                           <div class="media-body text-right">
-                            <h3>278</h3>
+                            <h3>{{$jumlahPertanyaan}}</h3>
                             <span>Pertanyaan</span>
                           </div>
                         </div>
@@ -38,7 +38,7 @@
                             <i class="bi bi-tags-fill icon-card text-success"></i>
                           </div>
                           <div class="media-body text-right">
-                            <h3>278</h3>
+                            <h3>{{$jumlahKategori}}</h3>
                             <span>Kategori</span>
                           </div>
                         </div>
@@ -57,7 +57,7 @@
                             <i class="bi bi-lightbulb-fill icon-card text-warning"></i>
                           </div>
                           <div class="media-body">
-                            <h3>278</h3>
+                            <h3>{{$jumlahJawaban}}</h3>
                             <span>Jawaban Anda</span>
                           </div>
                         </div>

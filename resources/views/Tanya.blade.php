@@ -6,7 +6,7 @@
 
 @section('linkHeader')
      <!-- Include stylesheet -->
-     <link rel="stylesheet" href="./css/quill.imageUploader.min.css">
+     <link rel="stylesheet" href="{{url('/css/quill.imageUploader.min.css')}}">
 @endsection
 
 @section('body')

@@ -8,5 +8,6 @@
 <h1>List Pengguna</h1>
                 <div class="d-flex mt-4 flex-wrap">
                    <x-user-card :users="$users" />
+                   {{$users->links()}}
                 </div>
 @endsection
