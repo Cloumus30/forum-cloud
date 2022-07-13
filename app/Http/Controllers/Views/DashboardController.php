@@ -12,13 +12,24 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function viewListPertanyaan(){
-        $pertanyaan = Pertanyaan::paginate();
+        $pertanyaan = Pertanyaan::with(['user'=>function($query){
+
+            $query->select(['nama','id'])
+            ->withCount(['jawaban as jumlahJawabanUser','pertanyaan as jumlahPertanyaanUser']);
+        },'kategori:id,nama'])
+                ->withCount('jawaban as jumlahJawaban')->paginate();
+        
         return view('List-pertanyaan',['pertanyaan' => $pertanyaan]);
     }
 
     public function viewDashboard(){
         $user = auth()->user();
-        $pertanyaan = Pertanyaan::take(6)->get();
+        $pertanyaan = Pertanyaan::with(['user'=>function($query){
+
+            $query->select(['nama','id'])
+            ->withCount(['jawaban as jumlahJawabanUser','pertanyaan as jumlahPertanyaanUser']);
+        },'kategori:id,nama'])
+                ->withCount('jawaban as jumlahJawaban')->take(6)->get();
         $jumlahPertanyaan = Pertanyaan::count();
         $jumlahJawaban = Jawaban::where('user_id',$user->id)->count();
         $jumlahKategori = Kategori::count();
@@ -42,7 +53,12 @@ class DashboardController extends Controller
     }
 
     public function viewPertanyaanUser(Request $request){
-        $pertanyaan = Pertanyaan::paginate();
+        $pertanyaan = Pertanyaan::with(['user'=>function($query){
+
+            $query->select(['nama','id'])
+            ->withCount(['jawaban as jumlahJawabanUser','pertanyaan as jumlahPertanyaanUser']);
+        },'kategori:id,nama'])
+                ->withCount('jawaban as jumlahJawaban')->paginate();
         return view('List-pertanyaan',['pertanyaan'=>$pertanyaan]);
     }
 
