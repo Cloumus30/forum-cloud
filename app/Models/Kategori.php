@@ -15,4 +15,12 @@ class Kategori extends Model
         'deskripsi',
         'user_id',
     ];
+    
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function pertanyaan(){
+        return $this->hasMany(Pertanyaan::class,'kategori_id','id');
+    }
 }

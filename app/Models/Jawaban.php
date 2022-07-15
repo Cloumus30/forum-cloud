@@ -13,6 +13,16 @@ class Jawaban extends Model
     protected $fillable =[
         'body',
         'pertanyaan_id',
-        'user_id'
+        'user_id',
+        'quill_delta',
+        'vote'
     ];
+
+    public function gambar(){
+        return $this->hasMany(GambarJawaban::class,'jawaban_id','id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'user_id','id');
+    }
 }
