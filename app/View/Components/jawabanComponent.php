@@ -8,15 +8,17 @@ class jawabanComponent extends Component
 {
     public $jawaban;
     public $userId;
+    public $pertanyaanId;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($jawaban,$userId)
+    public function __construct($jawaban,$userId,$pertanyaanId)
     {
         $this->jawaban = $jawaban;
         $this->userId = $userId;
+        $this->pertanyaanId = $pertanyaanId;
     }
 
     /**

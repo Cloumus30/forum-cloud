@@ -40,10 +40,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/pertanyaan-edit/{id}',[DashboardController::class,'viewPertanyaan']);
 
     Route::get('/profil',[DashboardController::class, 'viewProfil']);
+    Route::get('/profil-other/{id}',[DashboardController::class, 'viewOtherProfil']);
     Route::get('/tanya',[DashboardController::class, 'viewTanya']);
     Route::get('/list-kategori', [DashboardController::class, 'viewCategory']); 
-
-    
 });
 
 
@@ -66,6 +65,7 @@ Route::middleware('auth')->group(function(){
     Route::put('/pertanyaan-edit/{id}',[PertanyaanController::class,'update']);
 
     Route::post('/jawaban',[JawabanController::class, 'store']);
+    Route::put('/jawaban/{id}',[JawabanController::class,'update']);
     Route::post('/gambar-jawaban',[GambarJawabanController::class, 'store']);
 
     Route::post('/gambar-profil',[ProfilController::class,'storeUpdateImage']);
