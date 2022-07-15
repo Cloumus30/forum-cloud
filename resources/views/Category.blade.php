@@ -69,7 +69,7 @@
 
                 <div class="container d-flex flex-wrap justify-content-center mt-3">
                     {{-- components --}}
-                   <x-category-card :kategori="$kategori" />
+                   <x-category-card :kategori="$kategori" :userId="$userId" />
                    {{$kategori->links()}}
                 </div>
 

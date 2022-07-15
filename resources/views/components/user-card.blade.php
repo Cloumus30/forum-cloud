@@ -4,10 +4,10 @@
         <div class="card-body pb-0 pe-0" style="width: 18rem;">
             <div class="row">
                 <div class="col-auto">
-                    @if ($user->gambar_url)
-                        <img src="{{$user->gambar_url}}" class="rounded-circle" width="75px" alt="">    
+                    @if ($user->gambarUser)
+                        <img src="{{$user->gambarUser->url}}" class="rounded-circle" width="75px" alt="">    
                     @else
-                        <img src="./image/99173d0c-f63e-4419-afd5-273aa45e7d69.png" class="rounded-circle" width="75px" alt="">    
+                        <img src="./image/default_profile.png" class="rounded-circle" width="75px" alt="">    
                     @endif
                     
                 </div>

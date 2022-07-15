@@ -9,11 +9,14 @@
     </div>
     <div class="card-footer d-flex justify-content-between">
         <div class="value-question">
-            {{count($kateg->pertanyaan)}} Pertanyaan
+            {{$kateg->jumlah_pertanyaan}} Pertanyaan
         </div>
         <div class="btn-edit">
             {{-- <a href="#" class="btn btn-success btn-sm"><i class="bi bi-pencil-square"></i>  Edit</a> --}}
-            <button class="btn btn-success w-auto ms-2" data-bs-toggle="modal" data-bs-target="#modal-update-kategori{{$kateg->id}}" id="btn-update"><i class="bi bi-pencil-square"></i> Edit</button>
+            @if ($kateg->user->id == $userId)
+            <button class="btn btn-success w-auto ms-2" data-bs-toggle="modal" data-bs-target="#modal-update-kategori{{$kateg->id}}" id="btn-update"><i class="bi bi-pencil-square"></i> Edit</button>        
+            @endif
+            
         </div>
     </div>
 </div>

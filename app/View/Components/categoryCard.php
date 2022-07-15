@@ -7,14 +7,16 @@ use Illuminate\View\Component;
 class categoryCard extends Component
 {
     public $kategori;
+    public $userId;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($kategori)
+    public function __construct($kategori,$userId)
     {
         $this->kategori = $kategori;
+        $this->userId = $userId;
     }
 
     /**
