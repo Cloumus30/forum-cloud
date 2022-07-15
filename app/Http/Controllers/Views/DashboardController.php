@@ -7,6 +7,7 @@ use App\Models\Jawaban;
 use App\Models\Kategori;
 use App\Models\Pertanyaan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -19,9 +20,11 @@ class DashboardController extends Controller
             $pertanyaanUserCount = Pertanyaan::where('user_id', $userId)->count();
             $jawabanUserCount = Jawaban::where('user_id', $userId)->count();
             $jawabanCount = Jawaban::where('pertanyaan_id',$pertan->id)->count();
+            $time = Carbon::parse($pertan->waktu_tanya)->locale('id')->diffForHumans(Carbon::now());
             $pertan->user->jumlahPertanyaanUser =  $pertanyaanUserCount;
             $pertan->user->jumlahJawabanUser = $jawabanUserCount;
             $pertan->jumlahJawaban = $jawabanCount;
+            $pertan->waktu = $time;
         }
         
         return view('List-pertanyaan',['pertanyaan' => $pertanyaan]);
@@ -35,6 +38,10 @@ class DashboardController extends Controller
             ->withCount(['jawaban as jumlahJawabanUser','pertanyaan as jumlahPertanyaanUser']);
         },'kategori:id,nama'])
                 ->withCount('jawaban as jumlahJawaban')->orderBy('id','desc')->take(6)->get();
+        foreach ($pertanyaan as $pertan ) {
+            $time = Carbon::parse($pertan->waktu_tanya)->locale('id')->diffForHumans(Carbon::now());
+            $pertan->waktu = $time;
+        }
         $jumlahPertanyaan = Pertanyaan::count();
         $jumlahJawaban = Jawaban::where('user_id',$user->id)->count();
         $jumlahKategori = Kategori::count();
@@ -98,5 +105,13 @@ class DashboardController extends Controller
                 ->find($user->id);
         
         return view('Profil',['user' => $userData,'isOwnProfil'=>true]);
+    }
+
+    public function viewOtherProfil($id){
+        $profil = User::with('gambarUser')
+        ->withCount(['pertanyaan as jumlah_pertanyaan','jawaban as jumlah_jawaban'])
+        ->find($id);
+
+        return view('Profil-View',['user' => $profil]);
     }
 }

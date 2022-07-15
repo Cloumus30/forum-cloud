@@ -12,7 +12,7 @@
                     
                 </div>
                 <div class="col-6">
-                    <a href="#">{{$user->nama}}</a>
+                    <a href="{{url('/profil-other/'.$user->id)}}">{{$user->nama}}</a>
                     <div class="row">
                         <p class="mb-0 text-secondary"> <strong class="text-dark">{{$user->jumlah_pertanyaan}}</strong> Pertanyaan</p>
                         <p class="mb-0 text-secondary"> <strong class="text-dark">{{$user->jumlah_jawaban}}</strong> Menjawab</p>

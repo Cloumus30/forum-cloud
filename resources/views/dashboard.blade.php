@@ -74,7 +74,7 @@
             <x-pertanyaan-component :pertanyaan="$pertanyaanDashboard"/>
         </div>
         <div class="text-center mb-3">
-            <a href="#" class="btn btn-primary">Selengkapnya</a>    
+            <a href="{{url('/list-pertanyaan')}}" class="btn btn-primary">Selengkapnya</a>    
         </div>
     </div>
      

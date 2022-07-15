@@ -40,10 +40,9 @@ Route::middleware('auth')->group(function(){
     Route::get('/pertanyaan-edit/{id}',[DashboardController::class,'viewPertanyaan']);
 
     Route::get('/profil',[DashboardController::class, 'viewProfil']);
+    Route::get('/profil-other/{id}',[DashboardController::class, 'viewOtherProfil']);
     Route::get('/tanya',[DashboardController::class, 'viewTanya']);
     Route::get('/list-kategori', [DashboardController::class, 'viewCategory']); 
-
-    
 });
 
 

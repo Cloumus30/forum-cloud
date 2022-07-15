@@ -52,8 +52,13 @@
                         <a href="#testimonial" class="nav-item nav-link">Testimonial</a>
                         <a href="#contact" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="{{url('/login')}}" class="btn btn-dark rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Login</a>
-                    <a href="{{url('/daftar')}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Daftar</a>
+                    @guest
+                        <a href="{{url('/login')}}" class="btn btn-dark rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Login</a>
+                        <a href="{{url('/daftar')}}" class="btn btn-light rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Daftar</a>    
+                    @endguest
+                    @auth
+                        <a href="{{url('/dashboard')}}" class="btn btn-dark rounded-pill py-2 px-4 ms-3 d-none d-lg-block">Dashboard</a>    
+                    @endauth
                 </div>
             </nav>
 

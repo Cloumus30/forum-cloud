@@ -6,6 +6,7 @@
         <div class="title-question mb-2 d-flex justify-content-between">
             <a href="{{url('/pertanyaan/'.$pertan['id'])}}" class="text-decoration-none">
                 {{$pertan['judul']}}
+                <span class="text-secondary" style="font-size: smaller">{{$pertan->waktu}}</span>
             </a>
             <div>{{$pertan['jumlahJawaban']}} jawaban</div>
         </div>
