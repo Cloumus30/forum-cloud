@@ -30,6 +30,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
+Route::get('/welcome', function () {
+    return view('welcome');
+});
 Route::middleware('auth')->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'viewDashboard']);
     Route::get('/list-pengguna', [DashboardController::class, 'viewListPengguna']);
