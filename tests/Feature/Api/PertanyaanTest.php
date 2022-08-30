@@ -5,6 +5,7 @@ namespace Tests\Feature\Api;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
 class PertanyaanTest extends TestCase
@@ -22,8 +23,19 @@ class PertanyaanTest extends TestCase
         $response = $this->actingAs($user)
             ->withSession(['banned' => false])
             ->get('/api/pertanyaan');
+        // $response->dump();
+        $response
+        ->assertStatus(200)
+        ->assertJson(function(AssertableJson $json){
+            $json->where('message','Success Get')
+            ->has('data',fn($json)=>
+                $json->hasAll('data','path','per_page','next_page_url','prev_page_url')
+                ->etc()
+            );
+        });
 
-        $response->assertStatus(200);
+        // Check if user authenticated
+        $this->assertAuthenticatedAs($user);
     }
 
     /**
@@ -34,5 +46,6 @@ class PertanyaanTest extends TestCase
         $response = $this->get('/api/pertanyaan');
         
         $response->assertStatus(302);
+        $this->assertGuest();
     }
 }
