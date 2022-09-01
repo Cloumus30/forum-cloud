@@ -49,3 +49,10 @@ php artisan serve
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+<p>&nbsp;</p>
+
+### Notes
+----------
+ 1. laravel feature testing only works well with Database auto transaction (DB::transaction), and not works with manual transaction (DB::begintransaction, DB::commit) it will pass the manual transaction even if there is not DB::commit. 

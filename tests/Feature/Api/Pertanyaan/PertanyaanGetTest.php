@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature\Api\Pertanyaan;
 
+use App\Models\Pertanyaan;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Testing\Fluent\AssertableJson;
 use Tests\TestCase;
 
-class PertanyaanTest extends TestCase
+class PertanyaanGetTest extends TestCase
 {
     // use RefreshDatabase;
     /**
@@ -46,6 +47,37 @@ class PertanyaanTest extends TestCase
         $response = $this->get('/api/pertanyaan');
         
         $response->assertStatus(302);
+        $this->assertGuest();
+    }
+
+    /**
+     * Testing Pertanyaan Detail authenticated
+     */
+    public function test_view_detail_pertanyaan()
+    {
+        $user = User::factory()->make();
+        $pertanyaan = Pertanyaan::factory()->make();
+
+        $response = $this->actingAs($user)
+            ->withSession(['banned' => false])
+            ->get('/api/pertanyaan/'.$pertanyaan->id);
+
+        $response->assertStatus(200)
+            ->assertJson(function(AssertableJson $json){
+                $json->where('message','Success Get')
+                ->has('data');
+            });
+        
+        $this->assertAuthenticatedAs($user);
+    }
+
+    /**
+     * Testing Pertanyaan Detail not Login
+     */
+    public function test_view_detail_pertanyaan_forbidden()
+    {
+        $pertanyaan = Pertanyaan::factory()->make();
+        $response = $this->get('/api/pertanyaan'.$pertanyaan->id);
         $this->assertGuest();
     }
 }
