@@ -6,7 +6,12 @@ $user = auth()->user()
         <a href="{{url('/')}}" class="navbar-brand">Forum-Cloud</a>
         <ul class="navbar-nav me-3">
             <li class="nav-item">
-                <img src="{{$user->gambarUser->url}}" class="rounded-circle" width="35px" height="35px" alt="">   
+                @if ($user->gambarUser)
+                    <img src="{{$user->gambarUser->url}}" class="rounded-circle" width="35px" height="35px" alt="">       
+                @else
+                    <img src="{{asset('/image/default_profile.png')}}" class="rounded-circle" width="35px" height="35px" alt="">       
+                @endif
+                
             </li>
             <li class="nav-item dropdown">
                
