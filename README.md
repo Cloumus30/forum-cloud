@@ -17,8 +17,8 @@ run this command
 composer install
 ```
 
-### 2. Copy .env.example
-Copy file **".env.example"** and rename it as **".env"**. This file is the environtment of the application. After That Copy Again the **".env.example"** and rename it as **".env.testing"**. This File in the testing environtment of the application. 
+### 2. Setup Environment
+Copy file **".env.example"** and rename it as **".env"**. fill the .env file according to your local environtment This file is the environtment of the application. For Testing Environtment, you can fill it in the **"phpunit.xml"** file. fill it according your testing environtment.
 
 > DONT FORGET TO SETUP YOUR TESTING ENVIRONTMENT IF YOU RUNNING THE TESTING. IT POTENTIALLY REMOVE EXISTING DATA IN DATABASE WHILE TESTING RUNNING.
 
