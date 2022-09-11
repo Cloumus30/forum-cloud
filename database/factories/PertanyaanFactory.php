@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Kategori;
 use App\Models\Pertanyaan;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PertanyaanFactory extends Factory
@@ -34,7 +35,7 @@ class PertanyaanFactory extends Factory
             'body' => $this->faker->text(500),
             'overview' => $this->faker->text(100),
             'quill_delta' => $this->faker->text(500),
-            'waktu_tanya' => $this->faker->dateTime(),
+            'waktu_tanya' => Carbon::now()->toDateTimeString(),
             'kategori_id' => $this->faker->numberBetween(1,100),
             'user_id' => $this->faker->numberBetween(1,100),
         ];

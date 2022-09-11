@@ -15,11 +15,24 @@ class UserSeeder extends Seeder
     public function run()
     {
         $data = [
-            'nama' => 'dana',
-            'email' => 'dana@gmail.com',
-            'password' => bcrypt('dana'),
+            [
+                'nama' => 'dana',
+                'email' => 'dana@mail.com',
+                'password' => bcrypt('dana'),
+            ],
+            [
+                'nama' => 'imani',
+                'email' => 'imani@mail.com',
+                'password' => bcrypt('imani'),
+            ]
         ];
 
-        User::updateOrCreate($data);
+        foreach ($data as  $value) {
+            $email = $value['email'];
+            User::updateOrCreate([
+                'email' => $email,
+            ],$value);    
+        }
+        
     }
 }

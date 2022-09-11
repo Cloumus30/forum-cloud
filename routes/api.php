@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function(){
         Route::get('/',[PertanyaanController::class, 'index']);
         Route::get('/{pertanyaanId}',[PertanyaanController::class, 'view']);
         Route::post('/',[PertanyaanController::class, 'store']);
+        Route::put('/{pertanyaanId}',[PertanyaanController::class, 'update']);
     });
 });
 

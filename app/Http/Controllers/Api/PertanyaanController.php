@@ -24,7 +24,7 @@ class PertanyaanController extends Controller
             return response()->json([
                 'message' => 'Failed',
                 'error' => $th->getmessage(),
-            ],400);
+            ],500);
         }
     }
 
@@ -42,7 +42,7 @@ class PertanyaanController extends Controller
             return response()->json([
                 'message' => 'Failed Request',
                 'error' => $th->getmessage(),
-            ],400);
+            ],500);
         }
     }
 
@@ -61,15 +61,15 @@ class PertanyaanController extends Controller
             if($validator->fails()){
                 return response()->json([
                     'message'=> 'Failed Request',
-                    'error' => $validator->errors()
+                    'errors' => $validator->errors()->all()
                 ],400);
             }
             $user = auth()->user();
-            $data = null;
-            DB::transaction(function() use($repository,$request,$user){
-                $data = $repository->store($request, $user);
-            });
             
+            $data = DB::transaction(function() use($repository,$request,$user){
+                return $repository->store($request, $user);
+            });
+
             return response()->json([
                 'message' => 'Success Insert',
                 'data' => $data,
@@ -78,11 +78,58 @@ class PertanyaanController extends Controller
             return response()->json([
                 'message' => 'Failed Request',
                 'error' => $th->getmessage(),
-            ],400);
+            ],500);
         }
       }
 
       /**
        * Update Pertanyaan Data
        */
+      public function update(
+        $pertanyaanId,
+        Request $request, 
+        PertanyaanRepository $repository
+        ){
+        try {
+            $validator = Validator::make($request->all(),[
+                'judul' => 'required',
+                'body' => 'required',
+                'overview' => 'required',
+                'quill_delta' => 'required',
+                'kategori_id' => 'required',
+            ]);
+            if($validator->fails()){
+                return response()->json([
+                    'message'=> 'Failed Request',
+                    'errors' => $validator->errors()->all()
+                ],400);
+            }
+            $user = auth()->user();
+            
+            $data = DB::transaction(function() use($repository,$request,$user, $pertanyaanId){
+                $pertanyaan = $repository->getOne($pertanyaanId);
+                if(!$pertanyaan){
+                    return null;
+                }
+                return $repository->update($request,$pertanyaan);
+            });
+
+            if($data == null){
+                return response()->json([
+                    'message' => 'Failed Request',
+                    'errors' => ['Data Not Found']
+                ],404);
+            }
+
+            return response()->json([
+                'message' => 'Success Update',
+                'data' => $data,
+            ],200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Failed Request',
+                'error' => $th->getmessage(),
+            ],500);
+        }
+      }
 }

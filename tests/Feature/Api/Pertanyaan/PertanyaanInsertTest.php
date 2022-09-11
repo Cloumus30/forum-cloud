@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class PertanyaanInsertTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, WithFaker;
     /**
      * A basic feature test example.
      *
@@ -20,34 +20,28 @@ class PertanyaanInsertTest extends TestCase
     public function test_insert_pertanyaan_success()
     {
         $user = User::factory()->create();
-        $kategori = Kategori::create([
-            'nama' => 'kategori Coba',
-            'deskripsi' => 'Deskripsi Kategori Coba',
+        $kategori = Kategori::factory()->create([
             'user_id' => $user->id,
         ]);
+        $dummy = [
+            'judul' => $this->faker()->text(255),
+            'body' => $this->faker()->text(300),
+            'overview' => $this->faker()->text(255),
+            'quill_delta' => $this->faker()->text(300),
+            'kategori_id' => $kategori->id,
+        ];
         $response = $this->actingAs($user)
         ->withSession(['banned' => false,])
-        ->post('/api/pertanyaan/',[
-            'judul' => 'Pertanyaan Coba',
-            'body' => 'Pertanyaan Uji Coba Body',
-            'overview' => 'Pertanyaan Uji oba Overview',
-            'quill_delta' => 'Quill Delta Percobaan',
-            'kategori_id' => $kategori->id ?? 1,
-        ]);
+        ->post('/api/pertanyaan/',$dummy);
 
         $response->assertStatus(200)
         ->assertJson(function(AssertableJson $json){
             $json->where('message','Success Insert')
             ->has('data');
         });
-        $this->assertDatabaseHas('pertanyaans',[
-            'judul' => 'Pertanyaan Coba',
-            'body' => 'Pertanyaan Uji Coba Body',
-            'overview' => 'Pertanyaan Uji oba Overview',
-            'quill_delta' => 'Quill Delta Percobaan',
-            'kategori_id' => $kategori->id ?? 1,
-        ]);
-
+        // dd($response);
+        $this->assertDatabaseHas('pertanyaans',$dummy);
+        
     }
 
     /**
@@ -68,9 +62,7 @@ class PertanyaanInsertTest extends TestCase
     public function test_insert_pertanyaan_no_body()
     {
         $user = User::factory()->create();
-        $kategori = Kategori::create([
-            'nama' => 'kategori Coba',
-            'deskripsi' => 'Deskripsi Kategori Coba',
+        $kategori = Kategori::factory()->create([
             'user_id' => $user->id,
         ]);
 
@@ -81,7 +73,7 @@ class PertanyaanInsertTest extends TestCase
         $response->assertStatus(400)
         ->assertJson(function(AssertableJson $json){
             $json->where('message','Failed Request')
-            ->whereType('error','array');
+            ->whereType('errors','array');
         });
     }
 }

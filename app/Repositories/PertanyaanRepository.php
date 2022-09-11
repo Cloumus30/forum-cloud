@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Models\Pertanyaan;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 
 Class PertanyaanRepository{
@@ -39,5 +40,17 @@ Class PertanyaanRepository{
         ]);
 
         return $data;
+    }
+
+    public function update($request,$pertanyaan){
+        $pertanyaan->judul = $request->judul;
+        $pertanyaan->body = $request->body;
+        $pertanyaan->overview = $request->overview;
+        $pertanyaan->quill_delta = $request->quill_delta;
+        $pertanyaan->waktu_tanya = Carbon::now()->toDateTimeString();
+        $pertanyaan->kategori_id = $request->kategori_id;
+        
+        $pertanyaan->save();
+        return $pertanyaan;
     }
 }
